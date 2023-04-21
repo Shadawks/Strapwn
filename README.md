@@ -1,5 +1,3 @@
-# ReadMe
-
 ![strapwn_logo.png](./assets/strapwn_logo.png)
 
 
