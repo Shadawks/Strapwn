@@ -25,11 +25,11 @@ class StrapiExploitInterface:
     def get_strapi_version(self, url: str) -> str:
         '''Get the version of Strapi.'''
         try:
-            version = requests.get(f"{url}/admin/init", timeout=5).json()["data"]["strapiVersion"]
+            version = requests.get(f"{url}/admin/init").json()["data"]["strapiVersion"]
             return version
         except JSONDecodeError:
             try:
-                version = requests.get(f"{url}/admin/strapiVersion", timeout=5).json()["strapiVersion"]
+                version = requests.get(f"{url}/admin/strapiVersion").json()["strapiVersion"]
                 return version
             except JSONDecodeError:
                 return ""
