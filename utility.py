@@ -1,3 +1,4 @@
+'''Utility functions for Strapwn.'''
 from os import system, name
 
 def cls() -> None:

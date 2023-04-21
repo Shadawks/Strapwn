@@ -1,6 +1,9 @@
-import os, importlib, requests
-from typing import List
+'''Strapi Plugin Utility'''
 from json import JSONDecodeError
+from typing import List
+import os
+import importlib
+import requests
 
 class StrapiExploitInterface:
     ''''Interface for Strapi Exploit'''
@@ -25,11 +28,11 @@ class StrapiExploitInterface:
     def get_strapi_version(self, url: str) -> str:
         '''Get the version of Strapi.'''
         try:
-            version = requests.get(f"{url}/admin/init").json()["data"]["strapiVersion"]
+            version = requests.get(f"{url}/admin/init", timeout=10).json()["data"]["strapiVersion"]
             return version
         except JSONDecodeError:
             try:
-                version = requests.get(f"{url}/admin/strapiVersion").json()["strapiVersion"]
+                version = requests.get(f"{url}/admin/strapiVersion", timeout=10).json()["strapiVersion"]
                 return version
             except JSONDecodeError:
                 return ""
@@ -52,8 +55,8 @@ def import_plugins(plugins: List[str]) -> List[StrapiExploitInterface]:
             plugin_class = plugin.init()
             if issubclass(plugin_class.__class__, StrapiExploitInterface) and plugin_class.is_valid():
                 plugin_class_list.append(plugin.init())
-        except Exception as e:
-            print(f"Error importing plugin {plugin}: {e}")
+        except Exception as exception:
+            print(f"Error importing plugin {plugin}: {exception}")
     return plugin_class_list
 
 def print_available_plugins(plugins: List[StrapiExploitInterface]) -> None:
