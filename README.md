@@ -78,7 +78,10 @@ Method and class documentation is available in the [StrapiExploitInterface](./st
 
 Please note that this tool is intended for educational purposes only, and I cannot be held responsible for any misuse of it.
 
----
+# 🤝 Contributing
+
+
+<a href="https://github.com/Axel672"><img src="https://github.com/Axel672.png" width="50"></a>
 
 We welcome your suggestions and look forward to hearing from you.
 ## 🍀 Thanks and have fun !
