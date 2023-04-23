@@ -27,28 +27,58 @@ With Strapwn, you can create your own automation plugins by following these step
 2. Import the StrapiExploitInterface and implement your logic.
 
 ```python
-from strapi_plugin import StrapiExploitInterface
+from strapi_exploit import StrapiExploitInterface
 
 class MyStrapiExploit(StrapiExploitInterface):
     def __init__(self):
         super().__init__("CVE-XXXX-XXXX", "MyStrapiExploit description")
     def run(self) -> bool:
-        print("MyStrapiExploit running...")
+        '''This method is called when the exploit is selected.'''
+        self.info("MyStrapiExploit is running")
         return True
 
 def init():
     return MyStrapiExploit()
 ```
 
+## 📚 Documentation
+
+
+Method and class documentation is available in the [StrapiExploitInterface](./strapi_exploit.py) file.
+
+```python
+    def run(self) -> bool:
+        '''Run the plugin. Returns True if successful, False if not.'''
+    def get_name(self) -> str:
+        '''Get the name of the plugin.'''
+    def get_description(self) -> str:
+        '''Get the description of the plugin.'''
+    def is_valid(self) -> bool:
+        '''Check if the plugin is valid.'''
+    def get_strapi_version(self, url: str) -> str:
+        '''Get the version of Strapi.'''
+    def input(self, prompt: str) -> str:
+        '''Get input from the user.'''
+    def display(self, text: str) -> None:
+        '''Display text to the user.'''
+    def success(self, text: str) -> None:
+        '''Display success message to the user.'''
+    def error(self, text: str) -> None:
+        '''Display error message to the user.'''
+    def warning(self, text: str) -> None:
+        '''Display warning message to the user.'''
+    def info(self, text: str) -> None:
+        '''Display info message to the user.'''
+```
+
 🌝 If you would like to share your plugin with the community, simply make a pull request!
 
-## ⚠️ Disclaimer
+# ⚠️ Disclaimer
 
----
 
 Please note that this tool is intended for educational purposes only, and I cannot be held responsible for any misuse of it.
 
 ---
 
 We welcome your suggestions and look forward to hearing from you.
-### 🍀 Thanks and have fun !
+## 🍀 Thanks and have fun !

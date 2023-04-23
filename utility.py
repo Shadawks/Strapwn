@@ -1,5 +1,6 @@
 '''Utility functions for Strapwn.'''
 from os import system, name
+from rich.console import Console
 
 def cls() -> None:
     '''Clear the screen.'''
@@ -7,8 +8,14 @@ def cls() -> None:
 
 def display_motd() -> None:
     '''Display the MOTD.'''
-    print("-" * 20)
-    print("Welcome to Strapwn")
-    print("Version: 1.0.0")
-    print("Author: @Shadawks")
-    print("-" * 20)
+    console = Console()
+    cls()
+    console.print("""[bold magenta]
+    ███████╗████████╗██████╗  █████╗ ██████╗ ██╗    ██╗███╗   ██╗
+    ██╔════╝╚══██╔══╝██╔══██╗██╔══██╗██╔══██╗██║    ██║████╗  ██║
+    ███████╗   ██║   ██████╔╝███████║██████╔╝██║ █╗ ██║██╔██╗ ██║
+    ╚════██║   ██║   ██╔══██╗██╔══██║██╔═══╝ ██║███╗██║██║╚██╗██║
+    ███████║   ██║   ██║  ██║██║  ██║██║     ╚███╔███╔╝██║ ╚████║
+    ╚══════╝   ╚═╝   ╚═╝  ╚═╝╚═╝  ╚═╝╚═╝      ╚══╝╚══╝ ╚═╝  ╚═══╝
+    [/bold magenta][bold yellow]\n\tby @Shadawks[/bold yellow]
+    """, justify="center")

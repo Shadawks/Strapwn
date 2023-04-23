@@ -1,41 +1,15 @@
 '''Strapi Plugin Utility'''
-from json import JSONDecodeError
 from typing import List
 import os
 import importlib
-import requests
+from strapi_exploit import StrapiExploitInterface
+from rich.table import Table
+from rich.console import Console
+from rich.prompt import Prompt
+from rich.box import SIMPLE
+from utility import cls, display_motd
+from logger import logger
 
-class StrapiExploitInterface:
-    ''''Interface for Strapi Exploit'''
-    def __init__(self, name: str, description: str):
-        self.name = name
-        self.description = description
-    def run(self) -> bool:
-        '''Run the plugin. Returns True if successful, False if not.'''
-        pass
-    def get_name(self) -> str:
-        '''Get the name of the plugin.'''
-        return self.name
-    def get_description(self) -> str:
-        '''Get the description of the plugin.'''
-        return self.description
-    def is_valid(self) -> bool:
-        '''Check if the plugin is valid.'''
-        if self.name != "" and self.description != "":
-            return True
-        else:
-            return False
-    def get_strapi_version(self, url: str) -> str:
-        '''Get the version of Strapi.'''
-        try:
-            version = requests.get(f"{url}/admin/init", timeout=10).json()["data"]["strapiVersion"]
-            return version
-        except JSONDecodeError:
-            try:
-                version = requests.get(f"{url}/admin/strapiVersion", timeout=10).json()["strapiVersion"]
-                return version
-            except JSONDecodeError:
-                return ""
 
 def load_plugins() -> List[str]:
     '''Load plugins from the plugins directory.'''
@@ -61,26 +35,42 @@ def import_plugins(plugins: List[str]) -> List[StrapiExploitInterface]:
 
 def print_available_plugins(plugins: List[StrapiExploitInterface]) -> None:
     '''Print available plugins.'''
+    console = Console()
+    table = Table(show_header=True, header_style="bold red", box=SIMPLE)
+    table.add_column("ID", width=5, style="yellow")
+    table.add_column("Name", width=20)
+    table.add_column("Description")
     for plugin in plugins:
-        print(f"{plugins.index(plugin) + 1}. [{plugin.get_name()}] - {plugin.get_description()}")
+        table.add_row(str(plugins.index(plugin) + 1), plugin.get_name(), plugin.get_description())
+    console.print(table, justify="center")
 
 def choose_plugin(plugins: List[StrapiExploitInterface]) -> None:
     '''Choose a plugin to run.'''
     while True:
-        try:
-            choice = input("[>] Select a plugin to run: ")
-            if choice == "exit":
-                print("[!] Exiting...")
-                exit(0)
-            if choice == "?" or choice == "help":
-                print_available_plugins(plugins)
+        choice = Prompt.ask("[bold magenta]Strapwn[/bold magenta] > ", default="?")
+        if choice == "exit":
+            logger.info("Goodbye !")
+            exit(0)
+        elif choice == "?" or choice == "help":
+            cls()
+            display_motd()
+            print_available_plugins(plugins)
+            continue
+        else:
+            try:
+                choice = int(choice)
+                if choice > len(plugins):
+                    logger.error("Plugin doesn't exist.")
+                    continue
+            except ValueError:
+                logger.error("Invalid input.")
                 continue
-            choice = int(choice)
-            if choice > len(plugins):
-                print("[!] Plugin doesn't exist.")
-            else:
-                print("-" * 20)
+            try:
+                cls()
+                display_motd()
+                console = Console()
+                console.print(f"[bold red]Strapwn[/bold red] > [bold yellow]{plugins[choice - 1].get_name()}[/bold yellow]\n\n", justify="center")
                 plugins[choice - 1].run()
-                print("-" * 20)
-        except ValueError:
-            print("[!] Plugin doesn't exist.")
+            except Exception as exception:
+                logger.error(f"Unhandled error: {exception.__class__.__name__}")
+                continue
