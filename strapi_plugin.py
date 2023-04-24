@@ -38,7 +38,7 @@ def print_available_plugins(plugins: List[StrapiExploitInterface]) -> None:
     console = Console()
     table = Table(show_header=True, header_style="bold red", box=SIMPLE)
     table.add_column("ID", width=5, style="yellow")
-    table.add_column("Name", width=20)
+    table.add_column("Name", width=25)
     table.add_column("Description")
     for plugin in plugins:
         table.add_row(str(plugins.index(plugin) + 1), plugin.get_name(), plugin.get_description())
