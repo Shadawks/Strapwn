@@ -7,7 +7,7 @@ from rich.console import Console
 from rich.prompt import Prompt
 from rich.box import SIMPLE
 from strapi_exploit import StrapiExploitInterface
-from utility import cls, display_motd
+from utility import cls, display_motd, clean_exit
 from logger import logger
 
 
@@ -49,12 +49,8 @@ def choose_plugin(plugins: List[StrapiExploitInterface]) -> None:
     while True:
         choice = Prompt.ask("[bold magenta]Strapwn[/bold magenta] > ", default="?")
         if choice == "exit":
-            cls()
-            display_motd()
-            logger.info("Goodbye !")
-            exit(0)
+            clean_exit()
         elif choice == "?" or choice == "help":
-            cls()
             display_motd()
             print_available_plugins(plugins)
             continue
@@ -68,7 +64,6 @@ def choose_plugin(plugins: List[StrapiExploitInterface]) -> None:
                 logger.error("Invalid input.")
                 continue
             try:
-                cls()
                 display_motd()
                 console = Console()
                 console.print(f"[bold red]Strapwn[/bold red] > [bold yellow]{plugins[choice - 1].get_name()}[/bold yellow]\n\n", justify="center")
