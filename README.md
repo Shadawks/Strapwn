@@ -69,6 +69,17 @@ Method and class documentation is available in the [StrapiExploitInterface](./st
         '''Display warning message to the user.'''
     def info(self, text: str) -> None:
         '''Display info message to the user.'''
+
+    # NEW
+
+    def input_default(self, prompt: str, default: str) -> str:
+        '''Get input from the user with a default value.'''
+    def get_random_email(self) -> str:
+        '''Get a random email.'''
+    def get_random_password(self) -> str:
+        '''Get a random password.'''
+    def get_random_username(self) -> str:
+        '''Get a random username.'''
 ```
 
 🌝 If you would like to share your plugin with the community, simply make a pull request!
@@ -82,6 +93,7 @@ Please note that this tool is intended for educational purposes only, and I cann
 
 
 <a href="https://github.com/Axel672"><img src="https://github.com/Axel672.png" width="50"></a>
+<a href="https://github.com/sofianeelhor"><img src="https://github.com/sofianeelhor.png" width=50></a>
 
 We welcome your suggestions and look forward to hearing from you.
 ## 🍀 Thanks and have fun !
