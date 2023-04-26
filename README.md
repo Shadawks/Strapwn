@@ -80,6 +80,8 @@ Method and class documentation is available in the [StrapiExploitInterface](./st
         '''Get a random password.'''
     def get_random_username(self) -> str:
         '''Get a random username.'''
+    def get_admin_token(self, url: str, email: str, password: str) -> str:
+        '''Get the admin token.'''
 ```
 
 🌝 If you would like to share your plugin with the community, simply make a pull request!
