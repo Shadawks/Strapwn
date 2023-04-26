@@ -2,11 +2,11 @@
 from typing import List
 import os
 import importlib
-from strapi_exploit import StrapiExploitInterface
 from rich.table import Table
 from rich.console import Console
 from rich.prompt import Prompt
 from rich.box import SIMPLE
+from strapi_exploit import StrapiExploitInterface
 from utility import cls, display_motd
 from logger import logger
 
