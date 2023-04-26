@@ -1,2 +1,3 @@
 .vscode
 __pycache__
+plugins/cve_2023_22621.py

