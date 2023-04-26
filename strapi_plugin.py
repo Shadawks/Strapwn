@@ -49,6 +49,8 @@ def choose_plugin(plugins: List[StrapiExploitInterface]) -> None:
     while True:
         choice = Prompt.ask("[bold magenta]Strapwn[/bold magenta] > ", default="?")
         if choice == "exit":
+            cls()
+            display_motd()
             logger.info("Goodbye !")
             exit(0)
         elif choice == "?" or choice == "help":
