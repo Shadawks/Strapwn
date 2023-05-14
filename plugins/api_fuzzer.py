@@ -21,7 +21,7 @@ class ApiFuzzer(StrapiExploitInterface):
             self.error("Wordlist file does not exist")
             return False
         wordlist = [i.strip() for i in open(wordlist, "r", encoding="latin-1").readlines()]
-        thread = self.input_default("Number of threads (default=10)", 10)
+        thread = int(self.input_default("Number of threads (default=10)", 10))
         self.info(f"Loaded {len(wordlist)} words - {thread} threads")
         run(url, wordlist, thread)
 
