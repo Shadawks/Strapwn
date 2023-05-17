@@ -96,6 +96,7 @@ Please note that this tool is intended for educational purposes only, and I cann
 
 <a href="https://github.com/Axel672"><img src="https://github.com/Axel672.png" width="50"></a>
 <a href="https://github.com/sofianeelhor"><img src="https://github.com/sofianeelhor.png" width=50></a>
+<a href="https://github.com/TomF0x"><img src="https://github.com/TomF0x.png" width=50></a>
 
 We welcome your suggestions and look forward to hearing from you.
 ## 🍀 Thanks and have fun !
