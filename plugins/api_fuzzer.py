@@ -22,6 +22,11 @@ class ApiFuzzer(StrapiExploitInterface):
             return False
         wordlist = [i.strip() for i in open(wordlist, "r", encoding="latin-1").readlines()]
         thread = self.input_default("Number of threads (default=10)", 10)
+        try:
+            thread = int(thread)
+        except ValueError:
+            self.error("Invalid thread number")
+            return False
         self.info(f"Loaded {len(wordlist)} words - {thread} threads")
         run(url, wordlist, thread)
 
